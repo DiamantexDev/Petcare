@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare - Cadastro</title>
+    <link rel="icon" href="../imgs/logo-petcare.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJd/rB0Jc65G6tM0fF5dO8C8r8J3x8f8E8qI8F5aL4P5aL4I4z9E9t5p9p9p9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css"> 
+</head>
+<body>
+    <div id="header"></div>
+
+    <main>
+        <section id="registerPage" class="page py-16" aria-labelledby="register-heading">
+            <div class="container max-w-2xl">
+                <h1 id="register-heading" class="text-4xl font-bold text-center mb-12 text-blue-900">Cadastro de Cliente</h1>
+                
+                <div class="bg-white p-8 rounded-lg shadow-xl">
+                    <form id="formCadastro" name="formCadastro" class="space-y-6" aria-label="Formulário de Cadastro de Cliente">
+                        <fieldset>
+                            <legend class="text-xl font-semibold mb-4 text-blue-800">Informações Pessoais</legend>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="fullName" class="block text-sm font-medium mb-1">Nome Completo</label>
+                                    <input type="text" id="nome" name="nome" required class="form-input">
+                                </div>
+                                <div>
+                                    <label for="cpf" class="block text-sm font-medium mb-1">CPF</label>
+                                    <input type="text" id="cpf" name="cpf" required class="form-input" placeholder="000.000.000-00">
+                                </div>
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-4 mt-4">
+                                <div>
+                                    <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                                    <input type="email" id="email" name="email" required class="form-input">
+                                </div>
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium mb-1">Telefone</label>
+                                    <input type="tel" id="telefone" name="telefone" required class="form-input" placeholder="(11) 99999-9999">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend class="text-xl font-semibold mb-4 text-blue-800">Endereço</legend>
+                            <div>
+                                <label for="address" class="block text-sm font-medium mb-1">Logradouro</label>
+                                <input type="text" id="logradouro" name="logradouro" required class="form-input">
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-4 mt-4">
+                                <div>
+                                    <label for="city" class="block text-sm font-medium mb-1">Número</label>
+                                    <input type="text" id="numero" name="numero" required class="form-input">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium mb-1">Bairro</label>
+                                    <input type="text" id="bairro" name="bairro" required class="form-input">
+                                </div>        
+                            </div>
+     
+                            <div>
+                                <label for="zip" class="block text-sm font-medium mb-1">Complemento</label>
+                                <input type="text" id="complemento" name="complemento" class="form-input" placeholder="Ex.: casa 2">
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                <div>
+                                    <label for="city" class="block text-sm font-medium mb-1">Cidade</label>
+                                    <input type="text" id="cidade" name="cidade" required class="form-input">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium mb-1">Estado</label>
+                                    <select id="estado" name="estado" required class="form-select">
+                                        <option value="">Selecione</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="zip" class="block text-sm font-medium mb-1">CEP</label>
+                                    <input type="text" id="cep" name="cep" required class="form-input" placeholder="00000-000">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="senha" class="block text-sm font-medium mb-1">Senha</label>
+                                <input type="password" id="senha" name="senha" required class="form-input">
+                            </div>
+                        </fieldset>
+
+                        <button type="submit" class="btn-full mt-6">Cadastrar Cliente</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/include.js"></script>
+    <script>
+        incluir("#header", "./components/header.html", () => {
+            atualizarMenu();
+        });
+
+        incluir("#footer", "./components/footer.html");
+    </script>
+    
+    <script src="../js/public/loginLogout.js"></script>
+    <script type="module" src="../js/clientes/cadastro.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare - O Melhor Cuidado para Seu Pet</title>
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJd/rB0Jc65G6tM0fF5dO8C8r8J3x8f8E8qI8F5aL4P5aL4I4z9E9t5p9p9p9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css"> 
+</head>
+<body>
+    <div id="header"></div>
+    <main>
+        <section id="homePage" class="page" aria-labelledby="home-heading">
+            <div class="hero-section">
+                <div class="container">
+                    <h1 id="home-heading">Bem-vindo ao PetCare</h1>
+                    <p class="text-xl">O melhor cuidado para seu melhor amigo</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="../pages/agendamento.html" class="btn btn-secondary">Agendamentos</a>
+                        <a href="../pages/cadastroPet.html" class="btn btn-secondary">Cadastrar Pet</a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="services-preview">
+                <div class="container">
+                    <h2 class="text-3xl font-bold text-center mb-12 text-blue-900">Nossos Serviços</h2>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        
+                        <article class="service-card" aria-label="Serviço de Banho e Tosa">
+                            <div class="text-4xl mb-4 text-yellow-500"><i class="fa-solid fa-bath"></i></div>
+                            <h3 class="text-lg">Banho & Tosa</h3>
+                            <p>Serviços profissionais de higiene e estética</p>
+                        </article>
+                        <article class="service-card" aria-label="Serviço de Cuidado Especial">
+                            <div class="text-4xl mb-4 text-yellow-500"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3 class="text-lg">Cuidado Especial</h3>
+                            <p>Atendimento personalizado para cada pet</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/include.js"></script>
+    <script> 
+        incluir("#header", "./components/header.html", () => { atualizarMenu();});
+        incluir("#footer", "./components/footer.html");
+    </script>
+
+    <script src="../js/public/loginLogout.js"></script>
+</body>
+</html>

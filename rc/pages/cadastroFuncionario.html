@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare - Cadastro</title>
+    <link rel="icon" href="../imgs/logo-petcare.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJd/rB0Jc65G6tM0fF5dO8C8r8J3x8f8E8qI8F5aL4P5aL4I4z9E9t5p9p9p9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css"> 
+</head>
+<body>
+    <div id="header"></div>
+
+    <main>
+        <section id="registerPage" class="page py-16" aria-labelledby="register-heading">
+            <div class="container max-w-2xl">
+                <h1 id="register-heading" class="text-4xl font-bold text-center mb-12 text-blue-900">Cadastro de Funcionarios</h1>
+                
+                <div class="bg-white p-8 rounded-lg shadow-xl">
+                    <form id="formFuncionario" name="formFuncionario" class="space-y-6" aria-label="Formulário de Cadastro de Funcionários">
+                        
+                            <legend class="text-xl font-semibold mb-4 text-blue-800">Informações do Profissional</legend>
+                         
+                            <div>
+                                <label for="nome" class="block text-sm font-medium mb-1">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" required class="form-input">
+                            </div>
+
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                                <input type="email" id="email" name="email" required class="form-input">
+                            </div>
+
+                            <div>
+                                <label for="age" class="block text-sm font-medium mb-1">Cargo</label>
+                                    <select id="cargo" name="cargo" required class="form-select">
+                                        <option value="">Selecione</option>
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Gerente">Gerente</option>
+                                        <option value="Banhista">Banhista</option>
+                                        <option value="Tosador">Tosador</option>
+                                        <option value="Veterinario">Veterinario</option>
+                                    </select>
+                                </div>
+
+                            <div>
+                                <label for="crmv" class="block text-sm font-medium mb-1">CRMV</label>
+                                <input type="text" id="crmv" name="crmv" class="form-input">
+                            </div>
+ 
+                            <div>
+                                <label for="senha" class="block text-sm font-medium mb-1">Senha</label>
+                                <input type="password" id="senha" name="senha" required class="form-input">
+                            </div>
+                        
+                        <button type="submit" class="btn-full mt-6">Cadastrar Funcionário</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/include.js"></script>
+    <script>
+        incluir("#header", "./components/header.html", () => {atualizarMenu();});
+        incluir("#footer", "./components/footer.html");
+    </script>
+
+    <script type="module">
+        import { protegerPagina } from "../js/middleware/authFront.js";
+
+        protegerPagina({
+            login: true,
+            tipo: "funcionario",
+            cargo: "Administrador"
+        });
+    </script>
+    
+    <script src="../js/public/loginLogout.js"></script>
+    <script type="module" src="../js/funcionarios/cadastro.js"></script>
+</body>
+</html>

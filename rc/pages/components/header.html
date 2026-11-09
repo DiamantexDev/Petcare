@@ -1,0 +1,75 @@
+<header class="main-header">
+        <nav class="container nav-content" aria-label="Navegação Principal">
+            <div class="logo-container">
+                <a href="../index.html" class="flex items-center space-x-2">
+                    <img src="../assets/img/logo-petcare.png" alt="Logo PetCare" class="h-16 w-16">
+                    <h1>PetCare</h1>
+                </a>
+            </div>
+            
+            <ul class="nav-links" role="menubar">
+                <li><a href="../index.html" class="nav-btn" role="menuitem">Início</a></li>
+
+                <li id="linkCadastro" class="hidden"><a href="../pages/cadastro.html" class="nav-btn" >Cadastro</a></li>
+
+                <li id="linkAreaCliente" class="hidden">
+                    <a href="../pages/areaCliente.html" class="nav-btn">Área do Cliente</a>
+                </li>
+
+                <li id="linkCadastroPet" class="hidden">
+                    <a href="../pages/cadastroPet.html" class="nav-btn">Cadastro Pet</a>
+                </li>
+
+                <li id="linkBanhoTosa" class="hidden">
+                    <a href="../pages/agendamento.html" class="nav-btn">Agendamentos</a>
+                </li>
+
+                <li id="linkCriarConsulta" class="hidden">
+                    <a href="../pages/criarConsulta.html" class="nav-btn">Criar Consulta</a>
+                </li>
+
+                <li id="linkAreaFuncionario" class="hidden">
+                    <a href="../pages/areaFuncionario.html" class="nav-btn">Área do Funcionário</a>
+                </li>
+
+                <li id="linkCadastroFuncionario" class="hidden">
+                    <a href="../pages/cadastroFuncionario.html" class="nav-btn">Cadastro de Funcionários</a>
+                </li>
+
+                <li id="linkCadastroServico" class="hidden">
+                    <a href="../pages/cadastroServico.html" class="nav-btn">Cadastro de Serviços</a>
+                </li>
+
+                <li><a href="../pages/contato.html" class="nav-btn">Contato</a></li>
+                <li><a href="../pages/sobre.html" class="nav-btn">Sobre</a></li>
+
+                <li id="linkLogin">
+                    <a href="../pages/login.html" class="nav-btn">Login</a>
+                </li>
+
+                <li id="linkLogout" class="hidden">
+                    <a href="#" onclick="logout()" class="nav-btn">Sair</a>
+                </li>
+            </ul>
+
+            
+            <button aria-label="Abrir menu mobile" onclick="toggleMobileMenu()" class="menu-toggle">
+                <i class="fa-solid fa-bars w-6 h-6"></i>
+            </button>
+        </nav>
+        
+        <div id="mobileMenu" class="mobile-menu hidden">
+            <a href="../index.html">Início</a>
+            <a href="../pages/cadastro.html" id="mobileCadastro" class="hidden">Cadastro</a>
+            <a href="../pages/cadastroPet.html" id="mobileCadastroPet" class="hidden">Cadastro Pet</a>
+            <a href="../pages/banhoetosa.html" id="mobileBanhoTosa" class="hidden">Banho & Tosa</a>
+            <a href="../pages/areaCliente.html" id="mobileAreaCliente" class="hidden">Área do Cliente</a>
+
+            <a href="../pages/contato.html">Contato</a>
+            <a href="../pages/sobre.html">Sobre</a>
+
+            <a href="../pages/login.html" id="mobileLogin">Login</a>
+            <a href="#" id="mobileLogout" class="hidden" onclick="logout()">Sair</a>
+        </div>
+
+</header>
