@@ -66,15 +66,23 @@ ou importe via phpMyAdmin ou outro cliente MySQL.
 
 ### Usando o servidor embutido do PHP
 
+Na raiz do projeto:
+
 ```bash
-php -S localhost:8000 -t public
+php -S localhost:8000 -t public router.php
 ```
+
+O `router.php` é necessário porque `css/` e `assets/` ficam na raiz do projeto, fora de `public/`.
 
 Em seguida, acesse:
 
 - http://localhost:8000/
-- http://localhost:8000/login
-- http://localhost:8000/cadastro
+- http://localhost:8000/login.php
+- http://localhost:8000/cadastro.php
+
+### Usando o XAMPP
+
+Coloque o projeto em `htdocs` (ex.: `C:\xampp\htdocs\Petshop`) e acesse `http://localhost/Petshop/public/`. Os links se ajustam automaticamente à subpasta.
 
 ## Autenticação e autorização
 
