@@ -5,8 +5,9 @@ declare(strict_types=1);
 function redirect(string $path): void
 {
     $url = $path;
+
     if (!preg_match('/^(https?:)?\/\//', $url)) {
-        $url = '/' . ltrim($url, '/');
+        $url = petcarePageUrl($url);
     }
 
     header('Location: ' . $url);

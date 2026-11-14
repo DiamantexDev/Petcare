@@ -21,7 +21,7 @@ $flash = getFlashMessage();
     <div class="container">
         <div class="flex justify-between items-center mb-8 gap-4">
             <h1 class="text-4xl font-bold text-blue-900">Meus pets</h1>
-            <a href="/cliente/cadastro-pet.php" class="btn btn-primary">Cadastrar pet</a>
+            <a href="<?= e(petcarePageUrl('cliente/cadastro-pet.php')) ?>" class="btn btn-primary">Cadastrar pet</a>
         </div>
 
         <?php if ($flash): ?>

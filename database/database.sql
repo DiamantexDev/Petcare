@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS petshop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE petshop;
 
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
@@ -15,7 +15,7 @@ CREATE TABLE usuarios (
     updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE clientes (
+CREATE TABLE IF NOT EXISTS clientes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL UNIQUE,
     logradouro VARCHAR(150) NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE clientes (
     CONSTRAINT fk_clientes_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
-CREATE TABLE funcionarios (
+CREATE TABLE IF NOT EXISTS funcionarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL UNIQUE,
     cargo VARCHAR(80) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE funcionarios (
     CONSTRAINT fk_funcionarios_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
-CREATE TABLE pets (
+CREATE TABLE IF NOT EXISTS pets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
     nome VARCHAR(100) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE pets (
     INDEX idx_pets_cliente (cliente_id)
 );
 
-CREATE TABLE servicos (
+CREATE TABLE IF NOT EXISTS servicos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(120) NOT NULL,
     descricao TEXT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE servicos (
     updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE consultas (
+CREATE TABLE IF NOT EXISTS consultas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     pet_id INT NOT NULL,
     funcionario_id INT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE consultas (
     INDEX idx_consultas_data (data_hora)
 );
 
-CREATE TABLE agendamentos (
+CREATE TABLE IF NOT EXISTS agendamentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
     pet_id INT NOT NULL,
@@ -101,30 +101,58 @@ CREATE TABLE agendamentos (
     INDEX idx_agendamentos_data (data_hora)
 );
 
-INSERT INTO usuarios (nome, email, senha_hash, tipo, cpf, telefone, cargo, status) VALUES
-('Administrador PetCare', 'admin@petcare.com', '$2y$10$v4QnZa.3Y.UD8IqkgXGdIe1CI8dCPDrNpEGwEYJ9nKSzaYUUEey5e', 'funcionario', '12345678909', '(11) 98888-8888', 'Administrador', 'ativo'),
-('Ana Silva', 'ana@cliente.com', '$2y$10$v4QnZa.3Y.UD8IqkgXGdIe1CI8dCPDrNpEGwEYJ9nKSzaYUUEey5e', 'cliente', '11122233344', '(11) 99999-1111', NULL, 'ativo'),
-('Bruno Santos', 'bruno@cliente.com', '$2y$10$v4QnZa.3Y.UD8IqkgXGdIe1CI8dCPDrNpEGwEYJ9nKSzaYUUEey5e', 'cliente', '22233344455', '(11) 98888-2222', NULL, 'ativo');
+INSERT INTO usuarios (nome, email, senha_hash, tipo, cpf, telefone, cargo, status)
+SELECT 'Administrador PetCare', 'admin@petcare.com', '$2y$10$v4QnZa.3Y.UD8IqkgXGdIe1CI8dCPDrNpEGwEYJ9nKSzaYUUEey5e', 'funcionario', '12345678909', '(11) 98888-8888', 'Administrador', 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'admin@petcare.com');
 
-INSERT INTO clientes (usuario_id, logradouro, numero, bairro, cidade, estado, cep, complemento) VALUES
-(2, 'Rua das Flores', '123', 'Centro', 'São Paulo', 'SP', '01000-000', 'Casa 1'),
-(3, 'Avenida Paulista', '456', 'Bela Vista', 'São Paulo', 'SP', '01310-100', NULL);
+INSERT INTO usuarios (nome, email, senha_hash, tipo, cpf, telefone, cargo, status)
+SELECT 'Ana Silva', 'ana@cliente.com', '$2y$10$v4QnZa.3Y.UD8IqkgXGdIe1CI8dCPDrNpEGwEYJ9nKSzaYUUEey5e', 'cliente', '11122233344', '(11) 99999-1111', NULL, 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'ana@cliente.com');
 
-INSERT INTO funcionarios (usuario_id, cargo, especialidade) VALUES
-(1, 'Administrador', 'Gestão e atendimento');
+INSERT INTO usuarios (nome, email, senha_hash, tipo, cpf, telefone, cargo, status)
+SELECT 'Bruno Santos', 'bruno@cliente.com', '$2y$10$v4QnZa.3Y.UD8IqkgXGdIe1CI8dCPDrNpEGwEYJ9nKSzaYUUEey5e', 'cliente', '22233344455', '(11) 98888-2222', NULL, 'ativo'
+WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'bruno@cliente.com');
 
-INSERT INTO pets (cliente_id, nome, tipo, raca, idade, peso, observacoes) VALUES
-(1, 'Luna', 'Cachorro', 'Golden Retriever', '3 anos', '18 kg', 'Muito ativa e sociável'),
-(2, 'Milo', 'Gato', 'Siamês', '2 anos', '4 kg', 'Cuidados especiais com alimentação');
+INSERT INTO clientes (usuario_id, logradouro, numero, bairro, cidade, estado, cep, complemento)
+SELECT 2, 'Rua das Flores', '123', 'Centro', 'São Paulo', 'SP', '01000-000', 'Casa 1'
+WHERE NOT EXISTS (SELECT 1 FROM clientes WHERE usuario_id = 2);
 
-INSERT INTO servicos (nome, descricao, preco, duracao_minutos, ativo) VALUES
-('Banho & Tosa', 'Higienização completa com escovação e tosa', 120.00, 90, 1),
-('Consulta Veterinária', 'Consulta clínica e avaliação do pet', 150.00, 60, 1),
-('Vacinação', 'Aplicação de vacinas e acompanhamento', 140.00, 45, 1);
+INSERT INTO clientes (usuario_id, logradouro, numero, bairro, cidade, estado, cep, complemento)
+SELECT 3, 'Avenida Paulista', '456', 'Bela Vista', 'São Paulo', 'SP', '01310-100', NULL
+WHERE NOT EXISTS (SELECT 1 FROM clientes WHERE usuario_id = 3);
 
-INSERT INTO consultas (pet_id, funcionario_id, servico_id, data_hora, diagnostico, observacoes, status) VALUES
-(1, 1, 2, '2026-10-05 10:00:00', 'Sem alterações relevantes', 'Acompanhamento anual', 'agendada');
+INSERT INTO funcionarios (usuario_id, cargo, especialidade)
+SELECT 1, 'Administrador', 'Gestão e atendimento'
+WHERE NOT EXISTS (SELECT 1 FROM funcionarios WHERE usuario_id = 1);
 
-INSERT INTO agendamentos (cliente_id, pet_id, servico_id, data_hora, status, observacoes) VALUES
-(1, 1, 1, '2026-10-06 09:00:00', 'pendente', 'Pet agitado, mas tranquilo'),
-(2, 2, 3, '2026-10-07 14:30:00', 'confirmado', 'Vacina anual');
+INSERT INTO pets (cliente_id, nome, tipo, raca, idade, peso, observacoes)
+SELECT 1, 'Luna', 'Cachorro', 'Golden Retriever', '3 anos', '18 kg', 'Muito ativa e sociável'
+WHERE NOT EXISTS (SELECT 1 FROM pets WHERE cliente_id = 1 AND nome = 'Luna');
+
+INSERT INTO pets (cliente_id, nome, tipo, raca, idade, peso, observacoes)
+SELECT 2, 'Milo', 'Gato', 'Siamês', '2 anos', '4 kg', 'Cuidados especiais com alimentação'
+WHERE NOT EXISTS (SELECT 1 FROM pets WHERE cliente_id = 2 AND nome = 'Milo');
+
+INSERT INTO servicos (nome, descricao, preco, duracao_minutos, ativo)
+SELECT 'Banho & Tosa', 'Higienização completa com escovação e tosa', 120.00, 90, 1
+WHERE NOT EXISTS (SELECT 1 FROM servicos WHERE nome = 'Banho & Tosa');
+
+INSERT INTO servicos (nome, descricao, preco, duracao_minutos, ativo)
+SELECT 'Consulta Veterinária', 'Consulta clínica e avaliação do pet', 150.00, 60, 1
+WHERE NOT EXISTS (SELECT 1 FROM servicos WHERE nome = 'Consulta Veterinária');
+
+INSERT INTO servicos (nome, descricao, preco, duracao_minutos, ativo)
+SELECT 'Vacinação', 'Aplicação de vacinas e acompanhamento', 140.00, 45, 1
+WHERE NOT EXISTS (SELECT 1 FROM servicos WHERE nome = 'Vacinação');
+
+INSERT INTO consultas (pet_id, funcionario_id, servico_id, data_hora, diagnostico, observacoes, status)
+SELECT 1, 1, 2, '2026-10-05 10:00:00', 'Sem alterações relevantes', 'Acompanhamento anual', 'agendada'
+WHERE NOT EXISTS (SELECT 1 FROM consultas WHERE pet_id = 1 AND data_hora = '2026-10-05 10:00:00');
+
+INSERT INTO agendamentos (cliente_id, pet_id, servico_id, data_hora, status, observacoes)
+SELECT 1, 1, 1, '2026-10-06 09:00:00', 'pendente', 'Pet agitado, mas tranquilo'
+WHERE NOT EXISTS (SELECT 1 FROM agendamentos WHERE cliente_id = 1 AND pet_id = 1 AND data_hora = '2026-10-06 09:00:00');
+
+INSERT INTO agendamentos (cliente_id, pet_id, servico_id, data_hora, status, observacoes)
+SELECT 2, 2, 3, '2026-10-07 14:30:00', 'confirmado', 'Vacina anual'
+WHERE NOT EXISTS (SELECT 1 FROM agendamentos WHERE cliente_id = 2 AND pet_id = 2 AND data_hora = '2026-10-07 14:30:00');

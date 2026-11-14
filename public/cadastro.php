@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $pdo = getPdo();
         AuthController::registerClient($pdo, $_POST);
-        redirectWithMessage('/login.php', 'success', 'Cadastro realizado com sucesso. Faça login para continuar.');
+        redirectWithMessage('login.php', 'success', 'Cadastro realizado com sucesso. Faça login para continuar.');
     } catch (Throwable $exception) {
         $_SESSION['flash'] = ['type' => 'error', 'message' => $exception->getMessage()];
     }
@@ -31,7 +31,7 @@ $flash = getFlashMessage();
         <?php endif; ?>
 
         <div class="bg-white p-8 rounded-lg shadow-xl">
-            <form method="POST" action="/cadastro.php" class="space-y-6" aria-label="Formulário de Cadastro de Cliente">
+            <form method="POST" action="<?= e(petcarePageUrl('cadastro.php')) ?>" class="space-y-6" aria-label="Formulário de Cadastro de Cliente">
                 <fieldset>
                     <legend class="text-xl font-semibold mb-4 text-blue-800">Informações Pessoais</legend>
                     <div class="grid md:grid-cols-2 gap-4">

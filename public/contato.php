@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['flash'] = ['type' => 'error', 'message' => 'Preencha todos os campos do formulário de contato.'];
     } else {
         $_SESSION['flash'] = ['type' => 'success', 'message' => 'Mensagem enviada com sucesso. Em breve entraremos em contato.'];
-        redirect('/contato.php');
+        redirect('contato.php');
     }
 }
 
@@ -34,7 +34,7 @@ $flash = getFlashMessage();
         <?php endif; ?>
 
         <div class="bg-white p-8 rounded-lg shadow-xl">
-            <form method="POST" action="/contato.php" class="space-y-6">
+            <form method="POST" action="<?= e(petcarePageUrl('contato.php')) ?>" class="space-y-6">
                 <div>
                     <label for="nome" class="block text-sm font-medium mb-1">Nome</label>
                     <input type="text" id="nome" name="nome" required class="form-input">

@@ -42,14 +42,14 @@ require_once __DIR__ . '/../../app/views/components/header.php';
                 <p><strong>Nome:</strong> <?= e($usuario['nome']) ?></p>
                 <p><strong>E-mail:</strong> <?= e($usuario['email']) ?></p>
                 <p><strong>Tipo:</strong> <?= e($usuario['tipo']) ?></p>
-                <a href="/cliente/perfil.php" class="btn btn-primary mt-5">Editar perfil</a>
+                <a href="<?= e(petcarePageUrl('cliente/perfil.php')) ?>" class="btn btn-primary mt-5">Editar perfil</a>
             </div>
 
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold text-blue-900 mb-4">Ações rápidas</h2>
                 <div class="space-y-3">
-                    <a href="/cliente/cadastro-pet.php" class="btn btn-full text-center">Cadastrar pet</a>
-                    <a href="/cliente/agendamentos.php" class="btn btn-full text-center">Ver agendamentos</a>
+                    <a href="<?= e(petcarePageUrl('cliente/cadastro-pet.php')) ?>" class="btn btn-full text-center">Cadastrar pet</a>
+                    <a href="<?= e(petcarePageUrl('cliente/agendamentos.php')) ?>" class="btn btn-full text-center">Ver agendamentos</a>
                 </div>
             </div>
         </div>

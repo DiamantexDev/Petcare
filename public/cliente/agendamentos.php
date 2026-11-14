@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'observacoes' => $_POST['observacoes'] ?? '',
             'status' => 'pendente',
         ]);
-        redirectWithMessage('/cliente/agendamentos.php', 'success', 'Agendamento realizado com sucesso.');
+        redirectWithMessage('cliente/agendamentos.php', 'success', 'Agendamento realizado com sucesso.');
     } catch (Throwable $exception) {
         $_SESSION['flash'] = ['type' => 'error', 'message' => $exception->getMessage()];
     }
@@ -49,7 +49,7 @@ $flash = getFlashMessage();
         <div class="grid md:grid-cols-2 gap-6 mb-10">
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <h2 class="text-2xl font-bold text-blue-900 mb-4">Novo agendamento</h2>
-                <form method="POST" action="/cliente/agendamentos.php" class="space-y-4">
+                <form method="POST" action="<?= e(petcarePageUrl('cliente/agendamentos.php')) ?>" class="space-y-4">
                     <div>
                         <label for="pet_id" class="block text-sm font-medium mb-1">Pet</label>
                         <select id="pet_id" name="pet_id" required class="form-select">

@@ -5,4 +5,4 @@ declare(strict_types=1);
 require_once __DIR__ . '/../app/bootstrap.php';
 
 logoutUser();
-redirect('/index.php');
+redirect('index.php');

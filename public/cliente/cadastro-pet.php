@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo = getPdo();
     try {
         PetController::store($pdo, userSession()['id'], $_POST);
-        redirectWithMessage('/cliente/pets.php', 'success', 'Pet cadastrado com sucesso.');
+        redirectWithMessage('cliente/pets.php', 'success', 'Pet cadastrado com sucesso.');
     } catch (Throwable $exception) {
         $_SESSION['flash'] = ['type' => 'error', 'message' => $exception->getMessage()];
     }
@@ -33,7 +33,7 @@ $flash = getFlashMessage();
         <?php endif; ?>
 
         <div class="bg-white p-8 rounded-lg shadow-xl">
-            <form method="POST" action="/cliente/cadastro-pet.php" class="space-y-6">
+            <form method="POST" action="<?= e(petcarePageUrl('cliente/cadastro-pet.php')) ?>" class="space-y-6">
                 <div>
                     <label for="nome" class="block text-sm font-medium mb-1">Nome do pet</label>
                     <input type="text" id="nome" name="nome" required class="form-input">

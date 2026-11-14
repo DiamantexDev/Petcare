@@ -35,7 +35,7 @@ function userIsFuncionario(): bool
 function requireAuth(): void
 {
     if (!isAuthenticated()) {
-        redirect('/login.php');
+        redirect('login.php');
     }
 }
 
@@ -44,7 +44,7 @@ function requireRole(string $role): void
     requireAuth();
 
     if (($_SESSION['usuario_tipo'] ?? '') !== $role) {
-        redirect('/403.php');
+        redirect('403.php');
     }
 }
 
@@ -53,7 +53,7 @@ function requireAnyRole(array $roles): void
     requireAuth();
 
     if (!in_array($_SESSION['usuario_tipo'] ?? '', $roles, true)) {
-        redirect('/403.php');
+        redirect('403.php');
     }
 }
 
