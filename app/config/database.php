@@ -65,6 +65,8 @@ function resolveSslCaPath(string $path): string
     return $path;
 }
 
+const DB_CONNECTION_ERROR_MESSAGE = 'Não foi possível conectar ao banco de dados. Tente novamente em instantes.';
+
 function getPdo(): PDO
 {
     $config = getDatabaseConfig();
@@ -86,18 +88,25 @@ function getPdo(): PDO
     if ($config['ssl']) {
         $caPath = resolveSslCaPath((string) $config['ssl_ca']);
 
-        if ($caPath !== '' && is_file($caPath)) {
+        if ($caPath !== '' && is_file($caPath) && is_readable($caPath)) {
             $options[PDO::MYSQL_ATTR_SSL_CA] = $caPath;
             $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
         } else {
-            throw new RuntimeException('DB_SSL está ativo, mas o certificado DB_SSL_CA não foi encontrado: ' . $caPath);
+            error_log('[PetCare] DB_SSL ativo, mas o certificado DB_SSL_CA não existe ou não pode ser lido: ' . $caPath);
+            throw new RuntimeException(DB_CONNECTION_ERROR_MESSAGE);
         }
     }
 
     static $pdo = null;
 
     if ($pdo === null) {
-        $pdo = new PDO($dsn, $config['username'], $config['password'], $options);
+        try {
+            $pdo = new PDO($dsn, $config['username'], $config['password'], $options);
+        } catch (PDOException $exception) {
+            // O detalhe técnico vai para o log do servidor, nunca para o visitante
+            error_log('[PetCare] Falha ao conectar ao banco: ' . $exception->getMessage());
+            throw new RuntimeException(DB_CONNECTION_ERROR_MESSAGE, 0, $exception);
+        }
     }
 
     return $pdo;

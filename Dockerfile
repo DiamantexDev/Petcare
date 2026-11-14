@@ -15,4 +15,11 @@ COPY docker/apache-site.conf /etc/apache2/sites-available/000-default.conf
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 
+# Prepara o certificado do banco (Secret File do Render) antes de iniciar o Apache
+COPY docker/entrypoint.sh /usr/local/bin/petcare-entrypoint
+RUN sed -i 's/\r$//' /usr/local/bin/petcare-entrypoint && chmod +x /usr/local/bin/petcare-entrypoint
+
 EXPOSE 10000
+
+ENTRYPOINT ["petcare-entrypoint"]
+CMD ["apache2-foreground"]
