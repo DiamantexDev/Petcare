@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: petcare
+    runtime: docker
+    plan: free
+    healthCheckPath: /index.php
+    envVars:
+      # Preencha no painel do Render com os dados do Aiven
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: defaultdb
+      - key: DB_USER
+        value: avnadmin
+      - key: DB_SSL
+        value: "true"
+      # Certificado CA do Aiven, adicionado como "Secret File" chamado ca.pem
+      - key: DB_SSL_CA
+        value: /etc/secrets/ca.pem
