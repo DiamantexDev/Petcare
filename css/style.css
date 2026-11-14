@@ -248,7 +248,7 @@ html, body {
 
 /* === 5. SEÇÕES PRINCIPAIS === */
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/assets/img/bannerinicio.png');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../assets/img/bannerinicio.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

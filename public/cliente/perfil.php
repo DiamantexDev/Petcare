@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $_SESSION['usuario_nome'] = $_POST['nome'] ?? $usuario['nome'];
     $_SESSION['usuario_email'] = $_POST['email'] ?? $usuario['email'];
-    redirect('/cliente/dashboard.php');
+    redirect('cliente/dashboard.php');
 }
 
 $titulo = 'PetCare - Perfil';
@@ -46,7 +46,7 @@ require_once __DIR__ . '/../../app/views/components/header.php';
         <h1 class="text-4xl font-bold mb-8 text-blue-900">Editar perfil</h1>
 
         <div class="bg-white p-8 rounded-lg shadow-xl">
-            <form method="POST" action="/cliente/perfil.php" class="space-y-6">
+            <form method="POST" action="<?= e(petcarePageUrl('cliente/perfil.php')) ?>" class="space-y-6">
                 <div>
                     <label for="nome" class="block text-sm font-medium mb-1">Nome</label>
                     <input type="text" id="nome" name="nome" value="<?= e($usuario['nome']) ?>" required class="form-input">

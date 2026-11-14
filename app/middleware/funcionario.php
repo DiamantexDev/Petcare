@@ -7,6 +7,6 @@ require_once __DIR__ . '/../helpers/auth.php';
 function ensureFuncionarioAccess(): void
 {
     if (!userIsFuncionario()) {
-        redirect('/403.php');
+        redirect('403.php');
     }
 }

@@ -14,8 +14,8 @@ require_once __DIR__ . '/../app/views/components/header.php';
             <h1 id="home-heading">Bem-vindo ao PetCare</h1>
             <p class="text-xl">O melhor cuidado para seu melhor amigo</p>
             <div class="flex justify-center space-x-4 mt-8">
-                <a href="/cadastro.php" class="btn btn-primary">Cadastre-se</a>
-                <a href="/login.php" class="btn btn-secondary">Faça login</a>
+                <a href="<?= e(petcarePageUrl('cadastro.php')) ?>" class="btn btn-primary">Cadastre-se</a>
+                <a href="<?= e(petcarePageUrl('login.php')) ?>" class="btn btn-secondary">Faça login</a>
             </div>
         </div>
     </div>

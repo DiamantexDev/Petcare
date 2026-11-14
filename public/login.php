@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $pdo = getPdo();
         $dados = AuthController::login($pdo, $_POST);
-        $redirect = $dados['tipo'] === 'cliente' ? '/cliente/dashboard.php' : '/funcionario/dashboard.php';
+        $redirect = $dados['tipo'] === 'cliente' ? 'cliente/dashboard.php' : 'funcionario/dashboard.php';
         redirectWithMessage($redirect, 'success', 'Login realizado com sucesso!');
     } catch (Throwable $exception) {
         $_SESSION['flash'] = ['type' => 'error', 'message' => $exception->getMessage()];
@@ -32,7 +32,7 @@ $flash = getFlashMessage();
         <?php endif; ?>
 
         <div class="bg-white p-8 rounded-lg shadow-xl">
-            <form method="POST" action="/login.php" class="space-y-6" aria-label="Formulário de Login">
+            <form method="POST" action="<?= e(petcarePageUrl('login.php')) ?>" class="space-y-6" aria-label="Formulário de Login">
                 <div>
                     <label for="email" class="block text-sm font-medium mb-1">Email</label>
                     <input type="email" id="email" name="email" required class="form-input" placeholder="seu.email@exemplo.com">
@@ -43,7 +43,7 @@ $flash = getFlashMessage();
                 </div>
                 <button type="submit" class="btn-full">Entrar</button>
                 <p class="text-center text-sm mt-4">
-                    Novo por aqui? <a href="/cadastro.php" class="text-blue-600 hover:text-blue-800 font-medium">Cadastre-se</a>
+                    Novo por aqui? <a href="<?= e(petcarePageUrl('cadastro.php')) ?>" class="text-blue-600 hover:text-blue-800 font-medium">Cadastre-se</a>
                 </p>
             </form>
         </div>

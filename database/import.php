@@ -8,6 +8,10 @@ declare(strict_types=1);
  *
  * As linhas CREATE DATABASE / USE são ignoradas, pois bancos gerenciados
  * (ex.: Aiven) já fornecem um banco pronto (DB_NAME).
+ *
+ * O script pode ser executado mais de uma vez: as tabelas usam
+ * CREATE TABLE IF NOT EXISTS e os dados de exemplo só são inseridos
+ * se ainda não existirem.
  */
 
 if (PHP_SAPI !== 'cli') {
@@ -30,12 +34,6 @@ try {
     $pdo = getPdo();
 } catch (Throwable $e) {
     fwrite(STDERR, 'Falha na conexão: ' . $e->getMessage() . "\n");
-    exit(1);
-}
-
-$existing = $pdo->query("SHOW TABLES LIKE 'usuarios'")->fetchColumn();
-if ($existing !== false) {
-    fwrite(STDERR, "As tabelas já existem. Nada foi alterado.\n");
     exit(1);
 }
 
