@@ -31,7 +31,9 @@ function env(string $key, mixed $default = null): mixed
         }
     }
 
-    $value = $_ENV[$key] ?? $vars[$key] ?? null;
+    // Variáveis do ambiente (ex.: configuradas no Render) têm prioridade sobre o .env
+    $system = getenv($key);
+    $value = $_ENV[$key] ?? ($system !== false ? $system : null) ?? $vars[$key] ?? null;
 
     return $value !== null ? $value : $default;
 }
